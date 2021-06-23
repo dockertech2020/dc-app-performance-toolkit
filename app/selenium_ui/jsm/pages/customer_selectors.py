@@ -4,13 +4,14 @@ from selenium.webdriver.common.by import By
 
 class UrlManager:
 
-    def __init__(self, portal_id=None, request_key=None):
+    def __init__(self, portal_id=None, request_key=None, project_id=None):
         self.host = JSM_SETTINGS.server_url
         self.login_params = '/servicedesk/customer/user/login'
         self.portal_params = f'/servicedesk/customer/portal/{portal_id}'
         self.request_params = f'/servicedesk/customer/portal/{portal_id}/{request_key}'
         self.my_requests = '/servicedesk/customer/user/requests'
         self.all_requests = '/servicedesk/customer/user/requests?reporter=all'
+        self.customer_vote_list = f'/plugins/servlet/customervotelistservlet?projectId={project_id}'
 
     def login_url(self):
         return f'{self.host}{self.login_params}'
@@ -26,6 +27,9 @@ class UrlManager:
 
     def all_requests_url(self):
         return f'{self.host}{self.all_requests}'
+
+    def customer_vote_list_url(self):
+        return f'{self.host}{self.customer_vote_list}'
 
 
 class LoginPageLocators:
@@ -86,3 +90,8 @@ class RequestSelectors:
 class RequestsSelectors:
     my_requests_url = UrlManager().my_requests_url()
     requests_label = (By.XPATH, "//h2[contains(text(),'Requests')]")
+
+
+class FavfjsmCustomerVoteListSelectors:
+
+    vote_list = (By.ID, "votelist_datatable")

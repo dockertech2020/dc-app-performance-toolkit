@@ -20,6 +20,7 @@ from util.project_paths import JIRA_DATASET_ISSUES, JIRA_DATASET_JQLS, JIRA_DATA
     BITBUCKET_PROJECTS, BITBUCKET_REPOS, BITBUCKET_PRS, CONFLUENCE_BLOGS, CONFLUENCE_PAGES, CONFLUENCE_CUSTOM_PAGES, \
     CONFLUENCE_USERS, ENV_TAURUS_ARTIFACT_DIR, JSM_DATASET_REQUESTS, JSM_DATASET_CUSTOMERS, JSM_DATASET_AGENTS, \
     JSM_DATASET_SERVICE_DESKS_L, JSM_DATASET_SERVICE_DESKS_M, JSM_DATASET_SERVICE_DESKS_S, JSM_DATASET_CUSTOM_ISSUES
+from util.data_preparation.favfjsm_prepare_data import FAVFJSM_DATASET_SERVICE_DESKS
 
 SCREEN_WIDTH = 1920
 SCREEN_HEIGHT = 1080
@@ -60,6 +61,7 @@ class Dataset:
             self.dataset["service_desks_small"] = self.__read_input_file(JSM_DATASET_SERVICE_DESKS_S)
             self.dataset["service_desks_medium"] = self.__read_input_file(JSM_DATASET_SERVICE_DESKS_M)
             self.dataset["custom_issues"] = self.__read_input_file(JSM_DATASET_CUSTOM_ISSUES)
+            self.dataset["favfjsm_service_desks"] = self.__read_input_file(FAVFJSM_DATASET_SERVICE_DESKS)
         return self.dataset
 
     def confluence_dataset(self):

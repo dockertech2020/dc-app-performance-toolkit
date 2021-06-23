@@ -22,6 +22,8 @@ class UrlManager:
         self.queue_all_open = f'{self.view_queue}/{queue_id}'
         self.workload_report_params = f'/projects/{project_key}/reports/workload'
         self.custom_report_params = f'/projects/{project_key}/reports/custom/{custom_report_id}'
+        self.favfjsm_agent_view = f'/projects/{project_key}?selectedItem={JSM_SETTINGS.plugin_app_key}:' \
+                                  f'agent-view-sidebar'
 
     def login_url(self):
         return f'{self.host}{self.login_params}'
@@ -49,6 +51,9 @@ class UrlManager:
 
     def view_queue_all_open(self):
         return f'{self.host}{self.queue_all_open}'
+
+    def favfjsm_agent_view_url(self):
+        return f'{self.host}{self.favfjsm_agent_view}'
 
 
 class LoginPageLocators:
@@ -119,3 +124,8 @@ class ViewQueueLocators:
 
     queues = (By.CSS_SELECTOR, "#pinnednav-opts-sd-queues-nav li")
     queues_status = (By.XPATH, "//span[contains(text(),'Status')]")
+
+
+class FavfjsmAgentViewLocators:
+
+    issue_table = (By.ID, "issue-table")

@@ -2,11 +2,11 @@ from selenium.webdriver.common.by import By
 
 from selenium_ui.base_page import BasePage
 from selenium_ui.conftest import print_timing
-from selenium_ui.jsm.pages.customer_pages import Login
+from selenium_ui.jsm.pages.customer_pages import Login, FavfjsmCustomerVoteList
 from util.conf import JSM_SETTINGS
 
 
-def app_specific_action(webdriver, datasets):
+def favfjsm_customer_vote_list(webdriver, datasets):
     page = BasePage(webdriver)
     if datasets['custom_issues']:
         custom_request_key = datasets['custom_issue_key']
@@ -27,16 +27,14 @@ def app_specific_action(webdriver, datasets):
     #     app_specific_user_login(username='admin', password='admin')
     # measure()
 
-    @print_timing("selenium_customer_app_custom_action")
+    @print_timing("selenium_customer_favfjsm_customer_vote_list")
     def measure():
+        customer_vote_list_page = FavfjsmCustomerVoteList(webdriver,
+                                                          datasets['random_favfjsm_service_desk_project_id'])
 
-        @print_timing("selenium_customer_app_custom_action:view_request")
+        @print_timing("selenium_customer_favfjsm_customer_vote_list:view_customer_vote_list")
         def sub_measure():
-            page.go_to_url(f"{JSM_SETTINGS.server_url}/servicedesk/customer/portal/"
-                           f"{custom_service_desk_id}/{custom_request_key}")
-            # Wait for options element visible
-            page.wait_until_visible((By.CLASS_NAME, 'cv-request-options'))
-            # Wait for you app-specific UI element by ID selector
-            page.wait_until_visible((By.ID, "ID_OF_YOUR_APP_SPECIFIC_UI_ELEMENT"))
+            customer_vote_list_page.go_to()
+            customer_vote_list_page.wait_for_page_loaded()
         sub_measure()
     measure()

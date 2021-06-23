@@ -90,8 +90,9 @@ class RestClient(Client):
              files: dict = None,
              allow_redirect: bool = False,
              headers: dict = None,
-             auth: tuple = None):
-        body_data = self.to_json(body) if body else None
+             auth: tuple = None,
+             is_form_data: bool = False):
+        body_data = self.to_json(body) if body and not is_form_data else body
         response = self.session.post(url, body_data, params=params, files=files,
                                      auth=auth if auth else self.base_auth,
                                      headers=headers if headers else self.headers,

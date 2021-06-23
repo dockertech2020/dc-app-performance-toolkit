@@ -48,6 +48,12 @@ def setup_run_data(datasets):
     service_desk_random = random.choice(datasets[SERVICE_DESKS_SMALL] + datasets[SERVICE_DESKS_MEDIUM]
                                         + datasets[SERVICE_DESKS_LARGE])
     datasets['random_project_key'] = service_desk_random[2]
+    datasets['random_project_id'] = service_desk_random[1]
+
+    # Prepare random FAVFJSM service desk
+    favfjsm_service_desk_random = random.choice(datasets["favfjsm_service_desks"])
+    datasets['random_favfjsm_service_desk_project_id'] = favfjsm_service_desk_random[1]
+    datasets['random_favfjsm_service_desk_project_key'] = favfjsm_service_desk_random[2]
 
     # Define users dataset
     datasets['agent_username'] = agent[0]

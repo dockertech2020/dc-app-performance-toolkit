@@ -4,7 +4,8 @@ from selenium.webdriver.common.keys import Keys
 
 from selenium_ui.base_page import BasePage
 from selenium_ui.jsm.pages.customer_selectors import UrlManager, LoginPageLocators, TopPanelSelectors, \
-    CustomerPortalsSelectors, CustomerPortalSelectors, RequestSelectors, RequestsSelectors
+    CustomerPortalsSelectors, CustomerPortalSelectors, RequestSelectors, RequestsSelectors,\
+    FavfjsmCustomerVoteListSelectors
 
 
 class Login(BasePage):
@@ -157,3 +158,13 @@ class Requests(BasePage):
         self.page_url = url_manager.all_requests_url() if all_requests else url_manager.my_requests_url()
 
     page_loaded_selector = RequestsSelectors.requests_label
+
+
+class FavfjsmCustomerVoteList(BasePage):
+
+    def __init__(self, driver, project_id):
+        BasePage.__init__(self, driver)
+        url_manager = UrlManager(project_id=project_id)
+        self.page_url = url_manager.customer_vote_list_url()
+
+    page_loaded_selector = FavfjsmCustomerVoteListSelectors.vote_list

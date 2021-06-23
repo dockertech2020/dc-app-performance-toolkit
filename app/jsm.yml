@@ -4,11 +4,12 @@ settings:
   aggregator: consolidator
   verbose: false
   env:
-    application_hostname: test_jsm_instance.atlassian.com    # Jira Service Desk DC hostname without protocol and port e.g. test-jsm.atlassian.com or localhost
+    application_hostname: jsm-D-LoadB-1IKKK138LD4QP-598192675.us-east-2.elb.amazonaws.com #test_jsm_instance.atlassian.com    # Jira Service Desk DC hostname without protocol and port e.g. test-jsm.atlassian.com or localhost
     application_protocol: http      # http or https
     application_port: 80            # 80, 443, 8080, 2990, etc
     secure: True                    # Set False to allow insecure connections, e.g. when using self-signed SSL certificate
     application_postfix:            # e.g. /jira in case of url like http://localhost:2990/jira
+    plugin_app_key: io.aety.favfjsd
     admin_login: admin
     admin_password: admin
     load_executor: jmeter
@@ -21,11 +22,11 @@ settings:
     WEBDRIVER_VISIBLE: False
     JMETER_VERSION: 5.2.1
     LANGUAGE: en_US.utf8
-    allow_analytics: Yes            # Allow sending basic run analytics to Atlassian. These analytics help us to understand how the tool is being used and help us to continue to invest in this tooling. For more details please see our README.
+    allow_analytics: No            # Allow sending basic run analytics to Atlassian. These analytics help us to understand how the tool is being used and help us to continue to invest in this tooling. For more details please see our README.
     # Action percentage for Jmeter and Locust load executors
     agent_browse_projects: 10
     agent_view_request: 24
-    agent_add_comment: 26
+    agent_add_comment: 20
     agent_view_queues_small: 11
     agent_view_queues_medium: 9
     agent_view_report_workload_small: 4
@@ -33,16 +34,16 @@ settings:
     agent_view_report_created_vs_resolved_small: 5
     agent_view_report_created_vs_resolved_medium: 2
     agent_view_customers: 6
-    agent_standalone_extension: 0
+    agent_standalone_extension: 6
 
     customer_view_portal: 11
     customer_view_requests: 25
     customer_view_request: 15
-    customer_add_comment: 24
+    customer_add_comment: 18
     customer_share_request_with_customer: 5
     customer_share_request_with_org: 4
     customer_create_request: 16
-    customer_standalone_extension: 0
+    customer_standalone_extension: 6
 
     custom_dataset_query: ""        # Write JQL query to add JQL output to the app/datasets/jsm/custom-issues.csv, e.g. "summary ~ 'AppRequests*'"
 services:
@@ -50,6 +51,7 @@ services:
     prepare:
       - python util/pre_run/environment_checker.py
       - python util/data_preparation/jsm_prepare_data.py
+      - python util/data_preparation/favfjsm_prepare_data.py
     shutdown:
       - python util/post_run/jmeter_post_check.py
       - python util/jtl_convertor/jtls-to-csv.py kpi.jtl kpi-1.jtl selenium.jtl

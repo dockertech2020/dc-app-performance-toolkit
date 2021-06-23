@@ -39,6 +39,11 @@ def setup_run_data(datasets):
     datasets['project_id'] = request[3]
     datasets['project_key'] = request[4]
 
+    # Prepare random FAVFJSM service desk
+    favfjsm_service_desk_random = random.choice(datasets["favfjsm_service_desks"])
+    datasets['random_favfjsm_service_desk_project_id'] = favfjsm_service_desk_random[1]
+    datasets['random_favfjsm_service_desk_project_key'] = favfjsm_service_desk_random[2]
+
     if CUSTOM_ISSUES in datasets:
         if len(datasets[CUSTOM_ISSUES]) > 0:
             custom_issue = random.choice(datasets[CUSTOM_ISSUES])
@@ -168,6 +173,11 @@ def share_request_with_customer(webdriver, datasets):
 
 def log_out(webdriver, datasets):
     top_panel = TopPanel(webdriver)
+
+    # Go to 'Requests' view in customer portal before logging out to ensure that the profile menu is shown
+    requests = Requests(webdriver)
+    requests.go_to()
+    requests.wait_for_page_loaded()
 
     @print_timing("selenium_customer_log_out")
     def measure():

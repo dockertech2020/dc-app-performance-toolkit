@@ -2,11 +2,11 @@ from selenium.webdriver.common.by import By
 
 from selenium_ui.base_page import BasePage
 from selenium_ui.conftest import print_timing
-from selenium_ui.jsm.pages.agent_pages import Login
+from selenium_ui.jsm.pages.agent_pages import Login, FavfjsmAgentView
 from util.conf import JSM_SETTINGS
 
 
-def app_specific_action(webdriver, datasets):
+def favfjsm_agent_view(webdriver, datasets):
     page = BasePage(webdriver)
     if datasets['custom_issues']:
         issue_key = datasets['custom_issue_key']
@@ -30,15 +30,13 @@ def app_specific_action(webdriver, datasets):
     #     app_specific_user_login(username='admin', password='admin')
     # measure()
 
-    @print_timing("selenium_agent_app_custom_action")
+    @print_timing("selenium_agent_favfjsm_agent_view")
     def measure():
+        agent_view_page = FavfjsmAgentView(webdriver, datasets['random_favfjsm_service_desk_project_key'])
 
-        @print_timing("selenium_agent_app_custom_action:view_request")
+        @print_timing("selenium_agent_favfjsm_agent_view:view_agent_view")
         def sub_measure():
-            page.go_to_url(f"{JSM_SETTINGS.server_url}/browse/{issue_key}")
-            # Wait for summary field visible
-            page.wait_until_visible((By.ID, "summary-val"))
-            # Wait for you app-specific UI element by ID selector
-            page.wait_until_visible((By.ID, "ID_OF_YOUR_APP_SPECIFIC_UI_ELEMENT"))
+            agent_view_page.go_to()
+            agent_view_page.wait_for_page_loaded()
         sub_measure()
     measure()

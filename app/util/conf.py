@@ -78,6 +78,7 @@ class JsmSettings(BaseAppSettings):
         self.concurrency = self.agents_concurrency + self.customers_concurrency
         self.custom_dataset_query = self.get_property('custom_dataset_query') or ""
         self.verbose = self.settings['verbose']
+        self.plugin_app_key = self.get_property('plugin_app_key')
 
 
 JIRA_SETTINGS = JiraSettings(config_yml=JIRA_YML)
