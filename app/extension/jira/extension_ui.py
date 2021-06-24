@@ -33,12 +33,65 @@ def app_specific_action(webdriver, datasets):
     # measure()
 
     @print_timing("selenium_app_custom_action")
-    def measure():
-        @print_timing("selenium_app_custom_action:view_issue")
-        def sub_measure():
-            page.go_to_url(f"{JIRA_SETTINGS.server_url}/browse/{issue_key}")
-            page.wait_until_visible((By.ID, "summary-val"))  # Wait for summary field visible
-            page.wait_until_visible((By.ID, "ID_OF_YOUR_APP_SPECIFIC_UI_ELEMENT"))  # Wait for you app-specific UI element by ID selector
-        sub_measure()
-    measure()
+    # def measure():
+    #     @print_timing("selenium_app_custom_action:view_issue")
+    #     def sub_measure():
+    #         page.go_to_url(f"{JIRA_SETTINGS.server_url}/browse/{issue_key}")
+    #         page.wait_until_visible((By.ID, "summary-val"))  # Wait for summary field visible
+    #         page.wait_until_visible((By.ID, "ID_OF_YOUR_APP_SPECIFIC_UI_ELEMENT"))  # Wait for you app-specific UI element by ID selector
+    #     sub_measure()
 
+    def measure():
+        @print_timing("selenium_app_custom_action:Story_custom_fields")
+        def sub_measure():
+            page.go_to_url(f"{JIRA_SETTINGS.server_url}/browse/VERADCCERT-1022")
+            page.wait_until_visible((By.ID, "summary-val"))  # Wait for summary field visible
+            page.wait_until_visible((By.ID, "customfieldmodule"))  # Wait for you app-specific UI element by ID selector
+            # Wait for you Veracode specific UI element by ID selector
+            page.wait_until_visible((By.ID, "customfield_11100-val")) # Vera_Comm_ApplicationName
+            page.wait_until_visible((By.ID, "customfield_11101-val")) # Vera_Comm_AppID
+            page.wait_until_visible((By.ID, "customfield_11104-val")) # Vera_SCA_Comp_ComponentID
+            page.wait_until_visible((By.ID, "customfield_11105-val")) # Vera_SCA_Comp_MaxCVSSScore
+        sub_measure()
+
+        @print_timing("selenium_app_custom_action:Task_custom_fields")
+        def sub_measure():
+            page.go_to_url(f"{JIRA_SETTINGS.server_url}/browse/VERADCCERT-830")
+            page.wait_until_visible((By.ID, "summary-val"))  # Wait for summary field visible
+            page.wait_until_visible((By.ID, "customfieldmodule"))  # Wait for you app-specific UI element by ID selector
+            # Wait for you Veracode specific UI element by ID selector
+            page.wait_until_visible((By.ID, "customfield_11100-val")) # Vera_Comm_ApplicationName
+            page.wait_until_visible((By.ID, "customfield_11101-val")) # Vera_Comm_AppID
+            page.wait_until_visible((By.ID, "customfield_11102-val")) # Vera_Static_BuildID
+            page.wait_until_visible((By.ID, "customfield_11103-val")) # Vera_Static_FlawID
+        sub_measure()
+
+        @print_timing("selenium_app_custom_action:Sub_Task_custom_fields")
+        def sub_measure():
+            page.go_to_url(f"{JIRA_SETTINGS.server_url}/browse/VERADCCERT-1023")
+            page.wait_until_visible((By.ID, "summary-val"))  # Wait for summary field visible
+            page.wait_until_visible((By.ID, "customfieldmodule"))  # Wait for you app-specific UI element by ID selector
+            # Wait for you Veracode specific UI element by ID selector
+            page.wait_until_visible((By.ID, "customfield_11100-val"))  # Vera_Comm_ApplicationName
+            page.wait_until_visible((By.ID, "customfield_11101-val"))  # Vera_Comm_AppID
+            page.wait_until_visible((By.ID, "customfield_11106-val"))  # Vera_SCA_Vuln_CVEID
+            page.wait_until_visible((By.ID, "customfield_11107-val"))  # Vera_SCA_Vuln_CVSSscore
+        sub_measure()
+
+        @print_timing("selenium_app_custom_action:Bug_custom_fields")
+        def sub_measure():
+            page.go_to_url(f"{JIRA_SETTINGS.server_url}/browse/VERADCCERT-1087")
+            page.wait_until_visible((By.ID, "summary-val"))  # Wait for summary field visible
+            page.wait_until_visible((By.ID, "customfieldmodule"))  # Wait for you app-specific UI element by ID selector
+            # Wait for you Veracode specific UI element by ID selector
+            page.wait_until_visible((By.ID, "customfield_11100-val"))  # Vera_Comm_ApplicationName
+            page.wait_until_visible((By.ID, "customfield_11101-val"))  # Vera_Comm_AppID
+            page.wait_until_visible((By.ID, "customfield_11102-val"))  # Vera_Static_BuildID
+            page.wait_until_visible((By.ID, "customfield_11103-val"))  # Vera_Static_FlawID
+            page.wait_until_visible((By.ID, "customfield_11104-val"))  # Vera_SCA_Comp_ComponentID
+            page.wait_until_visible((By.ID, "customfield_11105-val"))  # Vera_SCA_Comp_MaxCVSSScore
+            page.wait_until_visible((By.ID, "customfield_11106-val"))  # Vera_SCA_Vuln_CVEID
+            page.wait_until_visible((By.ID, "customfield_11107-val"))  # Vera_SCA_Vuln_CVSSscore
+        sub_measure()
+
+    measure()
